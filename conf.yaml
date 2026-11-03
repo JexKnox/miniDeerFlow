@@ -1,0 +1,28 @@
+# miniDeerFlow LLM 配置
+# 模型通过 OpenAI 兼容接口访问（DeepSeek / vLLM / Ollama / 各类网关均可）
+# ${ENV_VAR} 会在加载时从 .env / 环境变量展开
+
+LLM:
+  # provider 可选 openai（OpenAI 兼容接口，默认）/ anthropic（Anthropic 原生协议）
+  # base_url / api_key 与 provider 对应：openai 填兼容网关地址，anthropic 填 Anthropic 网关地址
+  # 常规任务：coordinator / researcher / coder / reporter
+  BASIC_MODEL:
+    provider: ${LLM_PROVIDER:-openai}
+    model: ${BASIC_MODEL_NAME}
+    base_url: ${LLM_BASE_URL}
+    api_key: ${LLM_API_KEY}
+    temperature: 0.2
+    max_tokens: 8192
+
+  # 推理任务：planner / analyst
+  REASONING_MODEL:
+    provider: ${LLM_PROVIDER:-openai}
+    model: ${REASONING_MODEL_NAME}
+    base_url: ${LLM_BASE_URL}
+    api_key: ${LLM_API_KEY}
+    temperature: 0.2
+    max_tokens: 8192
+
+# 防火墙日志数据源（可被环境变量 LOG_FILE_PATH 覆盖）
+LOG:
+  file_path: ${LOG_FILE_PATH:-data/firewall.log}
